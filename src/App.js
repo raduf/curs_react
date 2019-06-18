@@ -13,7 +13,7 @@ class App extends Component {
           <h1 className="col-8 bg-primary p-3 text-white"> { this.title } </h1>
         </div>
 
-          {/* <TaskItem /> */}
+          <TaskItem />
 
           <ProjectList />
       </main>

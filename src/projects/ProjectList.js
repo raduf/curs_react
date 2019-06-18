@@ -6,7 +6,6 @@ class ProjectList extends Component {
 
     constructor(){
         super();
-
         let allProjects = [
             {
                 "id": 1,
@@ -69,25 +68,26 @@ class ProjectList extends Component {
                 "end_date": "2051-12-22T21:00:00.000Z"
             }
         ]
-
         this.state = {
             currentProject: null,
             projects: allProjects,
-            allProjects: allProjects
+            allProjects: allProjects 
         }
         this.setCurrentProject = this.setCurrentProject.bind(this);
-        this.onFilterChange = this.onFilterChange.bind(this)
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
 
     setCurrentProject(project) {
         this.setState( {currentProject: project} );
     }
 
-    onFilterChange(searchText){
-        console.log('Search Text: ', searchText)
-        let filteredProjects = this.state.allProjects.filter( (project) => project.name.toLowerCase().includes(searchText.toLowerCase()) )
-
-        this.setState(()=>({projects:filteredProjects}))
+    onFilterChange(searchText) {
+        console.log(this.state);
+        let filteredProjects = this.state.allProjects.filter( project => {
+            return  project.name.toLowerCase().includes(searchText.toLowerCase()) ||
+                    project.description.toLowerCase().includes(searchText.toLowerCase());
+        });
+        this.setState( () => ({ projects: filteredProjects }))
     }
 
     render() {
@@ -95,7 +95,7 @@ class ProjectList extends Component {
             <div>
                 <div className="row justify-content-center"> 
                     <div className="col-4 pt-2">
-                        <ProjectsFilter onFilterChange={this.onFilterChange}/>
+                        <ProjectsFilter onFilterChange={this.onFilterChange} />
                     </div>
                     <div className="col-4 pt-2">
                         <h5 className="float-right"> Current project:  {this.state.currentProject && this.state.currentProject.name} </h5>
