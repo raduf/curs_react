@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProjectItem from './ProjectItem';
-import TaskItem from '../tasks/TaskItem';
+import ProjectsFilter from './ProjectsFilter';
 
 class ProjectList extends Component {
 
@@ -74,28 +74,23 @@ class ProjectList extends Component {
         this.setCurrentProject = this.setCurrentProject.bind(this);
     }
 
-    closeTaskFn(){
-        console.log("closeTaskFn")
-    }
-
-    closeTaskObjFn(){
-        console.log("closeTaskObjFn")
-    }
-
     setCurrentProject(project) {
         this.setState( {currentProject: project} );
+    }
+
+    onFilterChange(searchText){
+        console.log('Search Text: ', searchText)
+
     }
 
     render() {
         return (
             <div>
                 <div className="row justify-content-center"> 
-                    <div className="col-8 pt-2">
-                        <TaskItem closeTaskFn={this.closeTaskFn} closeTaskObjFn={this.closeTaskObjFn}/>
+                    <div className="col-4 pt-2">
+                        <ProjectsFilter onFilterChange={this.onFilterChange}/>
                     </div>
-                </div>
-                <div className="row justify-content-center"> 
-                    <div className="col-8 pt-2">
+                    <div className="col-4 pt-2">
                         <h5 className="float-right"> Current project:  {this.state.currentProject && this.state.currentProject.name} </h5>
                     </div>
                 </div>
