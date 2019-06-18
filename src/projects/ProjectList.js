@@ -18,6 +18,9 @@ class ProjectList extends Component {
     }
 
     setCurrentProject(project) {
+        let currentProjectTasks = this.state.allTasks.filter( task => task.project_id === project.id )
+        project.tasks = currentProjectTasks
+
         this.setState( {currentProject: project} );
     }
 
