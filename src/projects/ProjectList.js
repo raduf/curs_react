@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProjectItem from './ProjectItem';
 import ProjectsFilter from './ProjectsFilter';
 import db from '../apiserver/db';
+import {project as projectSettings} from '../settings.json'
 
 class ProjectList extends Component {
 
@@ -49,8 +50,12 @@ class ProjectList extends Component {
                     {
                         this.state.projects.map(project => {
                             return (
-                                <ProjectItem key={project.id} currentProject={this.state.currentProject} 
-                                    project={project} setCurrentProject={this.setCurrentProject} />
+                                <ProjectItem 
+                                    key={project.id} 
+                                    currentProject={this.state.currentProject} 
+                                    project={project} 
+                                    setCurrentProject={this.setCurrentProject} 
+                                    projectSettings={projectSettings}/>
                             )
                         })
                     }

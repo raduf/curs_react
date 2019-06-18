@@ -42,8 +42,15 @@ class ProjectItem extends Component {
                     
                     ( 
                         <div>
-                            <button onClick={this.hideTaskList} className="btn btn-info btn-sm ml-3 mt-1"> Hide </button>
-                            <ProjectTaskList tasks={ this.props.currentProject.tasks } />
+                            {
+                                this.props.projectSettings && this.props.projectSettings.showHideButton &&
+                                (
+                                    <button onClick={this.hideTaskList} className="btn btn-info btn-sm ml-3 mt-1"> Hide </button>
+                                )
+                            }
+                            <ProjectTaskList 
+                                tasks={ this.props.currentProject.tasks } 
+                                projectSettings={this.props.projectSettings}/>
                         </div>
                     )
                 }

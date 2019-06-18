@@ -1,13 +1,17 @@
 import React from 'react';
 
 const ProjectTaskList = (props) => {
+
+    const noTasksMessage = props.projectSettings.noTasksMessage ? 
+    props.projectSettings.noTasksMessage : 'No tasks for this project!'
+
     return (
         <div className="pt-2">
 
             {
                 !props.tasks.length ?   
                 <div class="alert alert-secondary" role="alert">
-                    No tasks for this project!
+                    {noTasksMessage}
                 </div>
                 :
                 props.tasks.map(task => {

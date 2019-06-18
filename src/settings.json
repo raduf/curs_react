@@ -1,0 +1,6 @@
+{
+    "project": {
+        "noTasksMessage": "Selected project has no tasks!",
+        "showHideButton": true
+    }
+}
