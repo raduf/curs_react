@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ProjectTaskList from '../tasks/ProjectTaskList';
 
 class ProjectItem extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class ProjectItem extends Component {
                 </div>
                 {this.props.currentProject && this.props.currentProject.id == this.props.project.id  &&
                     (
-                        <div>{'Lista taskuri'}</div>
+                        <ProjectTaskList/>
                     )
                 }
             </div>
