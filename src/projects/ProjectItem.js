@@ -3,13 +3,12 @@ import React, { Component } from 'react';
 class ProjectItem extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
-        this.onSetCurrent = this.onSetCurrent.bind(this)
+        this.onSetCurrent = this.onSetCurrent.bind(this);
     }
 
-    onSetCurrent(e){
-        console.log(this.props)
-        this.props.setCurrentProject(this.props.project)
+    onSetCurrent(e) {
+        console.log(this.props);
+        this.props.setCurrentProject(this.props.project);
     }
 
     render(){
@@ -22,9 +21,8 @@ class ProjectItem extends Component {
                         <span className="float-right badge badge-default">
                             {this.props.project.code}
                             <button onClick={this.onSetCurrent}
-                                className="btn btn-secondary btn-sm ml-2">
-                                Set Current
-                            </button>
+                                type="button" className="btn btn-secondary btn-sm ml-2">
+                                Set current</button>    
                         </span>
                     </h4>
                     <div className="card-text pt-2 pb-2 pl-4 pr-4">{this.props.project.description}</div>

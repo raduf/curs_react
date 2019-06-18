@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProjectItem from './ProjectItem';
+import TaskItem from '../tasks/TaskItem';
 
 class ProjectList extends Component {
 
@@ -70,26 +71,24 @@ class ProjectList extends Component {
                 }
             ]
         }
-
-        this.setCurrentProject = this.setCurrentProject.bind(this)
+        this.setCurrentProject = this.setCurrentProject.bind(this);
     }
 
-    setCurrentProject(project){
-        //set current project
-        console.log('Parent:', project )
-
-        //this.state.currentProject = project
-        this.setState({currentProject:project})
+    setCurrentProject(project) {
+        this.setState( {currentProject: project} );
     }
 
     render() {
         return (
             <div>
-                <div className="row justify-content-center">
+                <div className="row justify-content-center"> 
                     <div className="col-8 pt-2">
-                        <h5 className="float-right">
-                            Current Project: {this.state.currentProject}
-                        </h5>
+                        <TaskItem />
+                    </div>
+                </div>
+                <div className="row justify-content-center"> 
+                    <div className="col-8 pt-2">
+                        <h5 className="float-right"> Current project:  {this.state.currentProject && this.state.currentProject.name} </h5>
                     </div>
                 </div>
                 <div className="row justify-content-center"> 
@@ -97,8 +96,7 @@ class ProjectList extends Component {
                         this.state.projects.map(project => {
                             return (
                                 <ProjectItem key={project.id} 
-                                    project={project} 
-                                    setCurrentProject={this.setCurrentProject}/>
+                                    project={project} setCurrentProject={this.setCurrentProject} />
                             )
                         })
                     }
