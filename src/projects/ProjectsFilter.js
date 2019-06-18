@@ -1,9 +1,9 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 
 const ProjectsFilter = (props) => {
-
-    const handleChange = (e) => {
+   
+    let handleChange = (e) => {
         console.log('Filtered by: ', e.target.value);
         props.onFilterChange(e.target.value);
     }
@@ -14,7 +14,32 @@ const ProjectsFilter = (props) => {
             <input onChange={handleChange} />
         </fieldset>
     );
+
 }
+
+
+/*
+    class ProjectsFilter extends Component {
+        constructor(props) {
+            super(props);
+            this.handleChange = this.handleChange.bind(this);
+        }
+
+        handleChange(e) {
+            console.log('Filtered by: ', e.target.value);
+            this.props.onFilterChange(e.target.value);
+        }
+
+        render() {
+            return (
+                <fieldset>
+                    <legend>Search project:</legend>
+                    <input onChange={this.handleChange} />
+                </fieldset>
+            );
+        }
+    }
+*/
 
 export default ProjectsFilter;
 
