@@ -27,6 +27,11 @@ class ProjectItem extends Component {
                     </h4>
                     <div className="card-text pt-2 pb-2 pl-4 pr-4">{this.props.project.description}</div>
                 </div>
+                {this.props.currentProject && this.props.currentProject.id == this.props.project.id  &&
+                    (
+                        <div>{'Lista taskuri'}</div>
+                    )
+                }
             </div>
         );
     }
