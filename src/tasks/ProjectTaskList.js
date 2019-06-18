@@ -1,8 +1,23 @@
 import React from 'react'
 
-const ProjectTaskList = () => {
+const ProjectTaskList = (props) => {
     return (
-        <div> Lista taskuri din componenta functie </div>
+        
+        <div className="pt-2">
+            {
+                props.tasks.map( task => {
+                    return (
+                        <div className="card">
+                            <div className="card-text pt-2 pb-2 pl-4 pr-4">
+                                <em><strong>{task.subject}: </strong> {task.description}</em>
+
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </div>
+
     )
 }
 

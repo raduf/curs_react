@@ -4,12 +4,22 @@ import ProjectTaskList from '../tasks/ProjectTaskList';
 class ProjectItem extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            displayTaskList:false
+        }
         this.onSetCurrent = this.onSetCurrent.bind(this);
+        this.hideTaskList = this.hideTaskList.bind(this);
     }
 
     onSetCurrent(e) {
         console.log(this.props);
         this.props.setCurrentProject(this.props.project);
+
+        this.setState(()=>({ displayTaskList: true }))
+    }
+
+    hideTaskList() {
+        this.setState(()=>({ displayTaskList: false }))
     }
 
     render(){
@@ -28,9 +38,14 @@ class ProjectItem extends Component {
                     </h4>
                     <div className="card-text pt-2 pb-2 pl-4 pr-4">{this.props.project.description}</div>
                 </div>
-                {this.props.currentProject && this.props.currentProject.id == this.props.project.id  &&
+                {   this.state.displayTaskList &&
+                    this.props.currentProject && this.props.currentProject.id == this.props.project.id  &&
                     (
-                        <ProjectTaskList/>
+                        <div>
+                            <button onClick={this.hideTaskList} className="btn btn-info btn-sm ml-3 mt-1">Hide</button>
+                            <ProjectTaskList 
+                                tasks={this.props.currentProject.tasks}/>
+                        </div>
                     )
                 }
             </div>
