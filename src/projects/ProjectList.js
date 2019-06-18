@@ -74,6 +74,14 @@ class ProjectList extends Component {
         this.setCurrentProject = this.setCurrentProject.bind(this);
     }
 
+    closeTaskFn(){
+        console.log("closeTaskFn")
+    }
+
+    closeTaskObjFn(){
+        console.log("closeTaskObjFn")
+    }
+
     setCurrentProject(project) {
         this.setState( {currentProject: project} );
     }
@@ -83,7 +91,7 @@ class ProjectList extends Component {
             <div>
                 <div className="row justify-content-center"> 
                     <div className="col-8 pt-2">
-                        <TaskItem />
+                        <TaskItem closeTaskFn={this.closeTaskFn} closeTaskObjFn={this.closeTaskObjFn}/>
                     </div>
                 </div>
                 <div className="row justify-content-center"> 
