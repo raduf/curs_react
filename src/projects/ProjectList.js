@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProjectItem from './ProjectItem';
 import ProjectsFilter from './ProjectsFilter';
-import db from '../apiserver/db'
+import db from '../apiserver/db';
 
 class ProjectList extends Component {
 
@@ -9,7 +9,7 @@ class ProjectList extends Component {
         super();
         this.state = {
             currentProject: null,
-            projects: db.projects,
+            projects: db.projects,      // nu e good practice ca aici sa interogam serverul !
             allProjects: db.projects,
             allTasks: db.tasks
         }
@@ -18,9 +18,10 @@ class ProjectList extends Component {
     }
 
     setCurrentProject(project) {
-        let currentProjectTasks = this.state.allTasks.filter( task => task.project_id === project.id )
-        project.tasks = currentProjectTasks
-
+        let currentProjectTasks = this.state.allTasks
+            .filter( task => task.project_id === project.id);
+        console.log('Filtered tasks: ', currentProjectTasks);
+        project.tasks = currentProjectTasks;
         this.setState( {currentProject: project} );
     }
 
@@ -48,11 +49,8 @@ class ProjectList extends Component {
                     {
                         this.state.projects.map(project => {
                             return (
-                                <ProjectItem 
-                                    key={project.id} 
-                                    project={project} 
-                                    setCurrentProject={this.setCurrentProject} 
-                                    currentProject={this.state.currentProject}/>
+                                <ProjectItem key={project.id} currentProject={this.state.currentProject} 
+                                    project={project} setCurrentProject={this.setCurrentProject} />
                             )
                         })
                     }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { tasks } from './tasks';
 
 class TaskItem extends Component {
     constructor(props) {
         super(props);
+        console.log(tasks);
         this.state = {
             task: {
                 "id": 101,

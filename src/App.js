@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ProjectList from './projects/ProjectList';
-import TaskItem from './tasks/TaskItem';
 import './App.css';
 
 class App extends Component {
@@ -12,9 +11,6 @@ class App extends Component {
         <div className="row justify-content-center">
           <h1 className="col-8 bg-primary p-3 text-white"> { this.title } </h1>
         </div>
-
-          {/* {<TaskItem />} */}
-
           <ProjectList />
       </main>
     );
