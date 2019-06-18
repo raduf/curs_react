@@ -6,6 +6,7 @@ class ProjectList extends Component {
     constructor(){
         super();
         this.state = {
+            currentProject: null,
             projects: [
                 {
                     "id": 1,
@@ -67,20 +68,37 @@ class ProjectList extends Component {
                     "created_date": "09/11/2051",
                     "end_date": "2051-12-22T21:00:00.000Z"
                 }
-            ],
-            selectedProject: 2
+            ]
         }
+
+        this.setCurrentProject = this.setCurrentProject.bind(this)
+    }
+
+    setCurrentProject(project){
+        //set current project
+        console.log('Parent:', project )
+
+        //this.state.currentProject = project
+        this.setState({currentProject:project})
     }
 
     render() {
         return (
             <div>
-                <div className="row float-right">Selected Project {this.state.selectedProject}</div>
+                <div className="row justify-content-center">
+                    <div className="col-8 pt-2">
+                        <h5 className="float-right">
+                            Current Project: {this.state.currentProject}
+                        </h5>
+                    </div>
+                </div>
                 <div className="row justify-content-center"> 
                     {
                         this.state.projects.map(project => {
                             return (
-                                <ProjectItem key={project.id} project={project}/>
+                                <ProjectItem key={project.id} 
+                                    project={project} 
+                                    setCurrentProject={this.setCurrentProject}/>
                             )
                         })
                     }
