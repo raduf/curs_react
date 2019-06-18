@@ -1,6 +1,6 @@
 {
-    "project": {
-        "noTasksMessage": "Selected project has no tasks!",
-        "showHideButton": true
+    "project_": {
+        "noTasksMessage": "Selected project has no tasks! (config)",
+        "showHideButton": false
     }
 }

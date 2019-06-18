@@ -28,5 +28,10 @@ const ProjectTaskList = (props) => {
     )
 }
 
-export default ProjectTaskList
+ProjectTaskList.defaultProps = {
+    projectSettings: {
+        noTasksMessage: 'No tasks! (default message)'
+    }
+}
 
+export default ProjectTaskList

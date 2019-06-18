@@ -59,4 +59,10 @@ class ProjectItem extends Component {
     }
 }
 
+ProjectItem.defaultProps = {
+    projectSettings: {
+        showHideButton: true
+    }
+}
+
 export default ProjectItem;
