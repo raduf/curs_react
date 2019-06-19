@@ -5,6 +5,7 @@ import ProjectsSearch from './ProjectsSearch';
 import ProjectInfoModal from './ProjectInfoModal';
 import db from '../apiserver/db';
 import { project as projectSettings } from '../settings.json';
+import ProjectAdd from './ProjectAdd';
 
 class ProjectList extends Component {
 
@@ -18,12 +19,15 @@ class ProjectList extends Component {
             projectSettings: projectSettings,
             projectToShow: null,
             projectInfoOpen: false, 
-            searchText: ''
+            searchText: '',
+            projectAddOpen: false
         }
         this.setCurrentProject = this.setCurrentProject.bind(this);
         this.onFilterChange = this.onFilterChange.bind(this);
         this.openProjectInfoModal = this.openProjectInfoModal.bind(this);
         this.closeProjectInfoModal = this.closeProjectInfoModal.bind(this);
+        this.handleProjectAdd = this.handleProjectAdd.bind(this);
+        this.handleProjectSave = this.handleProjectSave.bind(this)
     }
 
     setCurrentProject(project) {
@@ -65,19 +69,40 @@ class ProjectList extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate');
-        console.log(this.props, this.state);
-        console.log(nextProps, nextState);
+        // console.log('shouldComponentUpdate');
+        // console.log(this.props, this.state);
+        // console.log(nextProps, nextState);
 
-        if ( 
-            this.state.searchText !== nextState.searchText ||
-            this.state.currentProject !== nextState.currentProject ||
-            this.state.projectSettings !== nextState.projectSettings ||
-            this.state.projectToShow !== nextState.projectToShow ||
-            this.state.projectInfoOpen !== nextState.projectInfoOpen 
-        )
-            return true;
-        return false;
+        // if ( 
+        //     this.state.searchText !== nextState.searchText ||
+        //     this.state.currentProject !== nextState.currentProject ||
+        //     this.state.projectSettings !== nextState.projectSettings ||
+        //     this.state.projectToShow !== nextState.projectToShow ||
+        //     this.state.projectInfoOpen !== nextState.projectInfoOpen 
+        // )
+        //     return true;
+        // return false;
+        return true
+    }
+
+    handleProjectAdd(){
+        this.setState(()=>({
+            projectAddOpen: true
+        }))
+    }
+
+    handleProjectSave(project){
+        console.log('Saving project', project)
+        this.setState(()=>({
+            projectAddOpen: false
+        }))
+
+        //actualizare date pe server
+        if(project){
+            this.setState( (prevState) => ({
+                projects:prevState.projects.concat(project)
+            }) )
+        }
     }
 
     // onFilterChange = 'notfn';
@@ -87,6 +112,13 @@ class ProjectList extends Component {
         return (
             <div>
                 <div className="row justify-content-center"> 
+                    <div className="col-8 pt-2">
+                        <h6 className="float-right"> Current project:  {this.state.currentProject && this.state.currentProject.name} </h6>
+                    </div>
+
+                </div>
+                <div className="row justify-content-center"> 
+
                     <div className="col-4 pt-2">
                     {   true ?
                         <ProjectsSearch onFilterChange={this.onFilterChange} /> :
@@ -96,10 +128,16 @@ class ProjectList extends Component {
                     }
                     </div>
                     <div className="col-4 pt-2">
-                        <h5 className="float-right"> Current project:  {this.state.currentProject && this.state.currentProject.name} </h5>
+                        <button 
+                            onClick = {this.handleProjectAdd}
+                            className="btn-success btn-sm float-right">Add Project</button>
                     </div>
                 </div>
                 <div className="row justify-content-center"> 
+                    {this.state.projectAddOpen && 
+                        <ProjectAdd handleProjectSave={this.handleProjectSave}/>
+                    }
+
                     {
                         this.state.projects.map(project => {
                             return (
