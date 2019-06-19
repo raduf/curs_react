@@ -4,8 +4,8 @@ import Div from '../hoc/Div';
 import withProjectTaskListEmpty from '../hoc/withProjectTaskListEmpty';
 import ProjectTaskListIterator from './ProjectTaskListIterator';
 
-import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import ReactConfirmAlert from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const ProjectTaskListCond = withProjectTaskListEmpty(ProjectTaskListIterator);
 
@@ -14,14 +14,14 @@ class ProjectItem extends Component {
         super(props);
         this.state = {
             displayTaskList: false,
-            showDeleteDialog: false
+            showConfirmDelete: false
         }
         this.onSetCurrent = this.onSetCurrent.bind(this);
         this.hideTaskList = this.hideTaskList.bind(this);
         this.onMoreInfo = this.onMoreInfo.bind(this);
         this.onEditProject = this.onEditProject.bind(this);
         this.onDeleteProject = this.onDeleteProject.bind(this);
-        this.onConfirmDeleteProject = this.onConfirmDeleteProject.bind(this);
+        this.onStartDeleteProject = this.onStartDeleteProject.bind(this);
         this.onCancelDeleteProject = this.onCancelDeleteProject.bind(this);
     }
 
@@ -42,18 +42,15 @@ class ProjectItem extends Component {
         console.log('onEditProject: ', this.props.project);
         this.props.editProject(this.props.project);
     }
-    onConfirmDeleteProject() {
-        this.setState({showDeleteDialog:false})
-        console.log('onDeleteProject: ');
+    onDeleteProject() {
         this.props.deleteProject(this.props.project);
     }
-    onDeleteProject() {
-        console.log('onDeleteProject: ');
-        this.setState({showDeleteDialog:true})
+    
+    onStartDeleteProject() {
+        this.setState(()=>({ showConfirmDelete: true }))
     }
     onCancelDeleteProject() {
-        console.log('onCancelDeleteProject: ')
-        this.setState({showDeleteDialog:false})
+        this.setState(()=>({ showConfirmDelete: false }))
     }
 
     render(){
@@ -66,7 +63,7 @@ class ProjectItem extends Component {
                         {this.props.project.name}
                         <span className="float-right badge badge-default">
                             {this.props.project.code}
-                            <button onClick={this.onDeleteProject}
+                            <button onClick={this.onStartDeleteProject}
                                 type="button" className="btn btn-danger btn-sm ml-2">
                                 Delete</button>   
                             <button onClick={this.onEditProject}
@@ -99,16 +96,17 @@ class ProjectItem extends Component {
                 }
 
                 {
-                    this.state.showDeleteDialog && 
+                    this.state.showConfirmDelete &&
                     <ReactConfirmAlert
-                        title="Delete confirm"
-                        message="Are you sure you want to delete"
+                        title="Confirm delete"
+                        message="Delete selected project?"
                         confirmLabel="Delete"
                         cancelLabel="Cancel"
-                        onConfirm={this.onConfirmDeleteProject}
+                        onConfirm={this.onDeleteProject}
                         onCancel={this.onCancelDeleteProject}
                     />
                 }
+
             </div>
         );
     }

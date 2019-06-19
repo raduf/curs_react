@@ -116,13 +116,6 @@ class ProjectList extends Component {
         }));
     }
 
-    deleteProject(project) {
-        this.setState((prevState) => ({
-            projects: prevState.projects.filter( p => p.id !== project.id ),
-            allProjects: prevState.allProjects.filter( p => p.id !== project.id )
-        }));
-    }
-
     handleProjectEdit(project) {
         let calcProjects = (projects, project) => {
             
@@ -147,7 +140,13 @@ class ProjectList extends Component {
         }
 
     }
-    
+
+    deleteProject(project) {
+        this.setState((prevState) => ({
+            projects: prevState.projects.filter( (el) => el.id !== project.id),
+            allProjects: prevState.projects.filter( (el) => el.id !== project.id)
+        }));
+    }
 
     // onFilterChange = 'notfn';
     // <ProjectsSearch onFilterChange={this.onFilterChange} />
