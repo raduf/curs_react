@@ -9,11 +9,25 @@ class ProjectAdd extends Component {
             project:{
                 name: '',
                 code: '',
-                description: ''
+                description: '',
+            },
+
+            formErrors: {
+                name: '',
+                code: ''
+            },
+            formValid: false, 
+            projectValid: {
+                name: false,
+                code: false
             }
+
         }
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.validateField = this.validateField.bind(this);
+        this.validateForm = this.validateForm.bind(this);
+        this.handleFormInputChange = this.handleFormInputChange.bind(this);
     }
 
     onFormSubmit(e) {
@@ -33,8 +47,57 @@ class ProjectAdd extends Component {
             }
         );
     }
+
+    validateField(fieldName, value){
+        let fieldValidationErrors = this.state.formErrors
+
+        let nameValid = this.state.projectValid.name
+        let codeValid = this.state.projectValid.code
+
+        switch(fieldName){
+            case 'name':
+                nameValid = value.length >= 5
+                fieldValidationErrors.name = nameValid ? '' : 'is too short'
+                break
+            case 'code':
+                codeValid = value.length >= 2
+                fieldValidationErrors.code = codeValid ? '' : 'is too short'
+                break
+            default:
+                break
+        }
+
+        this.setState( () => ({
+            formErrors: fieldValidationErrors,
+            projectValid: {
+                name: nameValid,
+                code: codeValid
+            }
+        }), this.validateForm)
+    }
+
+    validateForm(){
+        this.setState({
+            formValid: this.state.projectValid.code && this.state.projectValid.name
+        })
+    }
     
-    
+    handleFormInputChange(e){
+        console.log('handleFormInputChange', e.target.name, e.target.value)
+        const value = e.target.value;
+        const name = e.target.name;
+
+        this.setState((prevState) => ({
+                project: {
+                    ...this.state.project,
+                    [name]: value
+                }
+            }), 
+            () => {
+                this.validateField(name, value)
+            }
+        );
+    }
 
     render() {
         return (
@@ -42,15 +105,24 @@ class ProjectAdd extends Component {
                 <form onSubmit={this.onFormSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
-                        <input name="name" type="text" className="form-control" id="name" />
+                        <input 
+                            value={this.state.project.name}
+                            onChange={this.handleFormInputChange}
+                            name="name" type="text" className="form-control" id="name" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="code">Code</label>
-                        <input name="code" type="text" className="form-control" id="code" />
+                        <input 
+                            value={this.state.project.code}
+                            onChange={this.handleFormInputChange}
+                            name="code" type="text" className="form-control" id="code" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Description</label>
-                        <input name="description" type="text" className="form-control" id="description" />
+                        <input 
+                            value={this.state.project.description}
+                            onChange={this.handleFormInputChange}
+                            name="description" type="text" className="form-control" id="description" />
                     </div>
                     <button className="btn btn-success">Save</button>
                 </form>
