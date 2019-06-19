@@ -4,19 +4,25 @@ import Div from '../hoc/Div';
 import withProjectTaskListEmpty from '../hoc/withProjectTaskListEmpty';
 import ProjectTaskListIterator from './ProjectTaskListIterator';
 
+import ReactConfirmAlert, { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+
 const ProjectTaskListCond = withProjectTaskListEmpty(ProjectTaskListIterator);
 
 class ProjectItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayTaskList: false
+            displayTaskList: false,
+            showDeleteDialog: false
         }
         this.onSetCurrent = this.onSetCurrent.bind(this);
         this.hideTaskList = this.hideTaskList.bind(this);
         this.onMoreInfo = this.onMoreInfo.bind(this);
         this.onEditProject = this.onEditProject.bind(this);
         this.onDeleteProject = this.onDeleteProject.bind(this);
+        this.onConfirmDeleteProject = this.onConfirmDeleteProject.bind(this);
+        this.onCancelDeleteProject = this.onCancelDeleteProject.bind(this);
     }
 
     onSetCurrent(e) {
@@ -36,9 +42,18 @@ class ProjectItem extends Component {
         console.log('onEditProject: ', this.props.project);
         this.props.editProject(this.props.project);
     }
-    onDeleteProject() {
-        console.log('onDeleteProject: ', this.props.project);
+    onConfirmDeleteProject() {
+        this.setState({showDeleteDialog:false})
+        console.log('onDeleteProject: ');
         this.props.deleteProject(this.props.project);
+    }
+    onDeleteProject() {
+        console.log('onDeleteProject: ');
+        this.setState({showDeleteDialog:true})
+    }
+    onCancelDeleteProject() {
+        console.log('onCancelDeleteProject: ')
+        this.setState({showDeleteDialog:false})
     }
 
     render(){
@@ -81,6 +96,18 @@ class ProjectItem extends Component {
                                 tasks={ this.props.currentProject.tasks } />
                         </Div>
                     )
+                }
+
+                {
+                    this.state.showDeleteDialog && 
+                    <ReactConfirmAlert
+                        title="Delete confirm"
+                        message="Are you sure you want to delete"
+                        confirmLabel="Delete"
+                        cancelLabel="Cancel"
+                        onConfirm={this.onConfirmDeleteProject}
+                        onCancel={this.onCancelDeleteProject}
+                    />
                 }
             </div>
         );
