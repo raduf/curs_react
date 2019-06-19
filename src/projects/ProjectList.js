@@ -12,7 +12,8 @@ class ProjectList extends Component {
             currentProject: null,
             projects: db.projects,      // nu e good practice ca aici sa interogam serverul !
             allProjects: db.projects,
-            allTasks: db.tasks
+            allTasks: db.tasks,
+            projectSettings: projectSettings
         }
         this.setCurrentProject = this.setCurrentProject.bind(this);
         this.onFilterChange = this.onFilterChange.bind(this);
@@ -55,7 +56,8 @@ class ProjectList extends Component {
                                     currentProject={this.state.currentProject} 
                                     project={project} 
                                     setCurrentProject={this.setCurrentProject} 
-                                    projectSettings={projectSettings}/>
+                                    projectSettings={projectSettings}
+                                    {...this.state.projectSettings}/>
                             )
                         })
                     }

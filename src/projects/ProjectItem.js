@@ -50,7 +50,8 @@ class ProjectItem extends Component {
                             }
                             <ProjectTaskList 
                                 tasks={ this.props.currentProject.tasks } 
-                                projectSettings={this.props.projectSettings}/>
+                                projectSettings={this.props.projectSettings}
+                                {...this.props}/>
                         </div>
                     )
                 }
@@ -61,7 +62,8 @@ class ProjectItem extends Component {
 
 ProjectItem.defaultProps = {
     projectSettings: {
-        showHideButton: true
+        showHideButton: true,
+        noTasksMessage: 'NO TASKS (default)'
     }
 }
 
