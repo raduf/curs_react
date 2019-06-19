@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 const ProjectTaskList = (props) => {
-
-    const noTasksMessage = props.projectSettings.noTasksMessage ? 
-    props.projectSettings.noTasksMessage : 'No tasks for this project!'
-
+    let noTasksMessage = props.noTasksMessage ?
+                    props.noTasksMessage :
+                    'No tasks for this project!';
     return (
+        
         <div className="pt-2">
-
             {
                 !props.tasks.length ?   
-                <div class="alert alert-secondary" role="alert">
+                <div className="alert alert-secondary" role="alert">
                     {noTasksMessage}
                 </div>
                 :
@@ -28,10 +29,15 @@ const ProjectTaskList = (props) => {
     )
 }
 
-ProjectTaskList.defaultProps = {
-    projectSettings: {
-        noTasksMessage: 'No tasks! (default message)'
-    }
+ProjectTaskList.defaultProps = { 
+    noTasksMessage: "NO TASKS!"
 }
 
+ProjectTaskList.propTypes = { 
+    noTasksMessage: PropTypes.string,
+    task: PropTypes.shape({ id: PropTypes.number, subject:PropTypes.string}),
+}
+
+
 export default ProjectTaskList
+

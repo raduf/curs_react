@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import ProjectTaskList from './ProjectTaskList' 
+import PropTypes from 'prop-types';
+import Div from '../hoc/Div';
+import withProjectTaskListEmpty from '../hoc/withProjectTaskListEmpty';
+import ProjectTaskListIterator from './ProjectTaskListIterator';
+
+const ProjectTaskListCond = withProjectTaskListEmpty(ProjectTaskListIterator);
 
 class ProjectItem extends Component {
     constructor(props) {
@@ -9,6 +14,7 @@ class ProjectItem extends Component {
         }
         this.onSetCurrent = this.onSetCurrent.bind(this);
         this.hideTaskList = this.hideTaskList.bind(this);
+        this.onMoreInfo = this.onMoreInfo.bind(this);
     }
 
     onSetCurrent(e) {
@@ -21,7 +27,12 @@ class ProjectItem extends Component {
         this.setState( () => ({ displayTaskList: false }) ); 
     }
 
+    onMoreInfo() {
+        this.props.openProjectInfoModal(this.props.project);
+    }
+
     render(){
+        console.log('ProjectItem rendered...');
         return (
             <div className="col-8 pt-2">
                 <div className="card card-inverse card-outline-default text-white"
@@ -30,6 +41,9 @@ class ProjectItem extends Component {
                         {this.props.project.name}
                         <span className="float-right badge badge-default">
                             {this.props.project.code}
+                            <button onClick={this.onMoreInfo}
+                                type="button" className="btn btn-secondary btn-sm ml-2">
+                                More info</button>   
                             <button onClick={this.onSetCurrent}
                                 type="button" className="btn btn-secondary btn-sm ml-2">
                                 Set current</button>    
@@ -41,18 +55,15 @@ class ProjectItem extends Component {
                     (this.props.currentProject && this.props.project.id === this.props.currentProject.id) &&
                     
                     ( 
-                        <div>
-                            {
-                                this.props.projectSettings && this.props.projectSettings.showHideButton &&
-                                (
-                                    <button onClick={this.hideTaskList} className="btn btn-info btn-sm ml-3 mt-1"> Hide </button>
-                                )
+                        <Div>
+                            {   
+                                this.props.showHideButton &&
+                                <button onClick={this.hideTaskList} className="btn btn-info btn-sm ml-3 mt-1"> Hide </button>
                             }
-                            <ProjectTaskList 
-                                tasks={ this.props.currentProject.tasks } 
-                                projectSettings={this.props.projectSettings}
-                                {...this.props}/>
-                        </div>
+                            <ProjectTaskListCond 
+                                {...this.props}
+                                tasks={ this.props.currentProject.tasks } />
+                        </Div>
                     )
                 }
             </div>
@@ -60,11 +71,17 @@ class ProjectItem extends Component {
     }
 }
 
-ProjectItem.defaultProps = {
-    projectSettings: {
-        showHideButton: true,
-        noTasksMessage: 'NO TASKS (default)'
-    }
+ProjectItem.defaultProps = { 
+    showHideButton: true
 }
+
+
+ProjectItem.propTypes = { 
+    showHideButton: PropTypes.bool,
+    project: PropTypes.shape({ id: PropTypes.number, description: PropTypes.string}),
+    currentProject: PropTypes.shape({ id: PropTypes.number}),
+    openProjectInfoModal: PropTypes.func
+}
+
 
 export default ProjectItem;

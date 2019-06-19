@@ -1,5 +1,6 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ProjectsFilter = (props) => {
    
@@ -11,35 +12,19 @@ const ProjectsFilter = (props) => {
     return (
         <fieldset>
             <legend>Search project:</legend>
-            <input onChange={handleChange} />
+            <input
+                ref={props.filterRef} 
+                onChange={handleChange}
+                style={ {border: "1px solid violet"} }  />
         </fieldset>
     );
 
 }
 
+ProjectsFilter.propTypes = { 
+    onFilterChange: PropTypes.func
+}
 
-/*
-    class ProjectsFilter extends Component {
-        constructor(props) {
-            super(props);
-            this.handleChange = this.handleChange.bind(this);
-        }
-
-        handleChange(e) {
-            console.log('Filtered by: ', e.target.value);
-            this.props.onFilterChange(e.target.value);
-        }
-
-        render() {
-            return (
-                <fieldset>
-                    <legend>Search project:</legend>
-                    <input onChange={this.handleChange} />
-                </fieldset>
-            );
-        }
-    }
-*/
 
 export default ProjectsFilter;
 
