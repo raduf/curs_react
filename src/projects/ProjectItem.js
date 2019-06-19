@@ -15,6 +15,7 @@ class ProjectItem extends Component {
         this.onSetCurrent = this.onSetCurrent.bind(this);
         this.hideTaskList = this.hideTaskList.bind(this);
         this.onMoreInfo = this.onMoreInfo.bind(this);
+        this.onEditProject = this.onEditProject.bind(this);
     }
 
     onSetCurrent(e) {
@@ -30,8 +31,13 @@ class ProjectItem extends Component {
     onMoreInfo() {
         this.props.openProjectInfoModal(this.props.project);
     }
+    onEditProject() {
+        console.log('onEditProject: ', this.props.project);
+        this.props.editProject(this.props.project);
+    }
 
     render(){
+        console.log('ProjectItem rendered...');
         return (
             <div className="col-8 pt-2">
                 <div className="card card-inverse card-outline-default text-white"
@@ -40,6 +46,9 @@ class ProjectItem extends Component {
                         {this.props.project.name}
                         <span className="float-right badge badge-default">
                             {this.props.project.code}
+                            <button onClick={this.onEditProject}
+                                type="button" className="btn btn-warning btn-sm ml-2">
+                                Edit</button>   
                             <button onClick={this.onMoreInfo}
                                 type="button" className="btn btn-secondary btn-sm ml-2">
                                 More info</button>   
