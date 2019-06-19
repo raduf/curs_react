@@ -34,6 +34,7 @@ class ProjectList extends Component {
         this.handleProjectSave = this.handleProjectSave.bind(this);
         this.handleProjectEdit = this.handleProjectEdit.bind(this);
         this.editProject = this.editProject.bind(this);
+        this.deleteProject = this.deleteProject.bind(this);
     }
 
     setCurrentProject(project) {
@@ -115,6 +116,13 @@ class ProjectList extends Component {
         }));
     }
 
+    deleteProject(project) {
+        this.setState((prevState) => ({
+            projects: prevState.projects.filter( p => p.id !== project.id ),
+            allProjects: prevState.allProjects.filter( p => p.id !== project.id )
+        }));
+    }
+
     handleProjectEdit(project) {
         let calcProjects = (projects, project) => {
             
@@ -182,6 +190,7 @@ class ProjectList extends Component {
                                     currentProject={this.state.currentProject} 
                                     project={project} setCurrentProject={this.setCurrentProject}
                                     editProject={this.editProject}
+                                    deleteProject={this.deleteProject}
                                     openProjectInfoModal={this.openProjectInfoModal} />
                             )
                         })

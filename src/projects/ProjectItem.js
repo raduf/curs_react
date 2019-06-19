@@ -16,6 +16,7 @@ class ProjectItem extends Component {
         this.hideTaskList = this.hideTaskList.bind(this);
         this.onMoreInfo = this.onMoreInfo.bind(this);
         this.onEditProject = this.onEditProject.bind(this);
+        this.onDeleteProject = this.onDeleteProject.bind(this);
     }
 
     onSetCurrent(e) {
@@ -35,6 +36,10 @@ class ProjectItem extends Component {
         console.log('onEditProject: ', this.props.project);
         this.props.editProject(this.props.project);
     }
+    onDeleteProject() {
+        console.log('onDeleteProject: ', this.props.project);
+        this.props.deleteProject(this.props.project);
+    }
 
     render(){
         console.log('ProjectItem rendered...');
@@ -46,6 +51,9 @@ class ProjectItem extends Component {
                         {this.props.project.name}
                         <span className="float-right badge badge-default">
                             {this.props.project.code}
+                            <button onClick={this.onDeleteProject}
+                                type="button" className="btn btn-danger btn-sm ml-2">
+                                Delete</button>   
                             <button onClick={this.onEditProject}
                                 type="button" className="btn btn-warning btn-sm ml-2">
                                 Edit</button>   
