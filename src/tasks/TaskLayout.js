@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Switch, Route, NavLink } from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import TaskList from './TaskList';
 import TaskNew from './TaskNew';
 import TaskEdit from './TaskEdit';
@@ -32,6 +32,7 @@ const TaskLayout = ({ match, ...props }) => {
                             <Route exact path={`${match.url}`} component={TaskList}/>
                             <Route path={`${match.url}/new`} component={TaskNew}/>
                             <Route path={`${match.url}/edit/:id`} component={TaskEdit}/>
+                            <Redirect from={`${match.url}/edit`} to={`${match.url}/edit/new`} />
                         </Switch>
                     </div>
                 </div>
