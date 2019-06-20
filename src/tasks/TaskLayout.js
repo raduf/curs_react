@@ -32,7 +32,7 @@ const TaskLayout = ({ match, ...props }) => {
                             <Route exact path={`${match.url}`} component={TaskList}/>
                             <Route path={`${match.url}/new`} component={TaskNew}/>
                             <Route path={`${match.url}/edit/:id`} component={TaskEdit}/>
-                            <Redirect from={`${match.url}/edit`} to={`${match.url}/edit/new`} />
+                            <Redirect from={`${match.url}/edit`} to={`${match.url}/new`} />
                         </Switch>
                     </div>
                 </div>

@@ -1,11 +1,21 @@
 
 import React from 'react';
+import queryString from 'query-string';
 
-const TaskList = () => {
+const TaskList = ({ location }) => {
+    console.log(location.search);
+    const queryObject = queryString.parse(location.search);
+    console.log(queryObject);
     return (
         <div className="row">
             <div className="mt-2 w-100">
                 <h3>Tasks</h3>
+                {   queryObject && 
+                    ( queryObject.owner_id || queryObject.asignee_id || queryObject.project_id) && 
+                    <h6> <em> Prefilter by owner: {queryObject.owner_id || 'all'};
+                        asignee: {queryObject.asignee_id || 'all'}; 
+                        project id: {queryObject.project_id || 'all'}  </em> </h6>
+                }
                 <table className="table table-inverse">
                     <thead>
                         <tr>

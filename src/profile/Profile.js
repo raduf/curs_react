@@ -1,6 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 const Profile = (props) => {
+    // informatii venite de la container
+    let query = {
+        owner_id: 10,
+        asignee_id: 10
+    }
+    let searchString = queryString.stringify(query);
+
     return (
         <div className="card text-center">
             <div className="card-header">
@@ -13,7 +22,10 @@ const Profile = (props) => {
                 <a className="btn btn-primary text-white ml-2">All Projects</a>
             </div>
             <div className="card-footer text-muted">
-                Working on 7 tasks
+                <Link to={{
+                    pathname: '/tasks',
+                    search: searchString
+                  }}> <em> Working on 7 tasks </em> </Link>    
             </div>
         </div>
     )

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Div from '../hoc/Div';
 import withProjectTaskListEmpty from '../hoc/withProjectTaskListEmpty';
 import ProjectTaskListIterator from './ProjectTaskListIterator';
@@ -68,6 +69,9 @@ class ProjectItem extends Component {
                             <button onClick={this.onEditProject}
                                 type="button" className="btn btn-warning btn-sm ml-2">
                                 Edit</button>   
+                            <Link to={`/tasks/?project_id=${this.props.project.id || ''}`} 
+                                className="btn btn-info btn-sm ml-2">
+                                Tasks</Link>   
                             <button onClick={this.onMoreInfo}
                                 type="button" className="btn btn-secondary btn-sm ml-2">
                                 More info</button>   
