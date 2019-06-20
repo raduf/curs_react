@@ -1,5 +1,5 @@
-
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import DisplayErrors from './DisplayErrors'
 
 class ProjectAdd extends Component {
 
@@ -99,32 +99,44 @@ class ProjectAdd extends Component {
         );
     }
 
+    errorClass(error){
+        return error.length === 0 ? '' : 'is-invalid'
+    }
+
     render() {
         return (
             <div className="col-8 pt-2">
                 <form onSubmit={this.onFormSubmit}>
+                    <DisplayErrors formErrors={this.state.formErrors}/>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <input 
                             value={this.state.project.name}
                             onChange={this.handleFormInputChange}
-                            name="name" type="text" className="form-control" id="name" />
+                            name="name" type="text" 
+                            className={`form-control ${ this.errorClass(this.state.formErrors.name)}`} 
+                            id="name" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="code">Code</label>
                         <input 
                             value={this.state.project.code}
                             onChange={this.handleFormInputChange}
-                            name="code" type="text" className="form-control" id="code" />
+                            name="code" type="text" 
+                            className={`form-control ${ this.errorClass(this.state.formErrors.code)}`} 
+                            id="code" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Description</label>
                         <input 
                             value={this.state.project.description}
                             onChange={this.handleFormInputChange}
-                            name="description" type="text" className="form-control" id="description" />
+                            name="description" type="text" 
+                            className="form-control" id="description" />
                     </div>
-                    <button className="btn btn-success">Save</button>
+                    <button 
+                        disabled = {!this.state.formValid}
+                        className="btn btn-success">Save</button>
                 </form>
             </div>
         )
