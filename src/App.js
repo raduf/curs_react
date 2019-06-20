@@ -22,7 +22,7 @@ class App extends Component {
         
           <Route path="/" exact component={ProjectList} />
           <Route path="/dashboard" exact component={Dashboard} />
-          <Route path="/tasks" exact component={TaskLayout} />
+          <Route path="/tasks" component={TaskLayout} />
           <Route path="/profile" exact render={() => (<Profile profile={this.profile} />) } />
       </main>
     );

@@ -1,7 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
+import TaskList from './TaskList';
+import TaskNew from './TaskNew';
 
-const TaskLayout = (props) => {
+const TaskLayout = ({match, ...props}) => {
     return (
         <div className="container">
             <div className="row">
@@ -9,8 +11,8 @@ const TaskLayout = (props) => {
             </div>
             <div className="row">
                 <div className="col-md-3 mt-2">
-                    <button className="btn btn-block btn-outline-info">New task</button>
-                    <button className="btn btn-block btn-outline-info">All tasks</button>
+                    <NavLink className="btn btn-block btn-outline-info" exact to={`${match.url}`}>All tasks</NavLink>
+                    <NavLink className="btn btn-block btn-outline-info" to={`${match.url}/new`}>New task</NavLink>
                     <hr />
                     <h5>Owner / Asignee:</h5>
                     <button className="btn btn-block btn-outline-info">FOR Me</button>
@@ -23,6 +25,11 @@ const TaskLayout = (props) => {
                 </div>
                 <div className="col-md-9">
                     
+                    <Switch>
+                        <Route path={`${match.url}/new`} component={ TaskNew }/>
+                        <Route path={`${match.url}`} component={ TaskList }/>
+                    </Switch>
+
                 </div>
             </div>
         </div>
