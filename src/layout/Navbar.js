@@ -16,15 +16,15 @@ const Navbar = (props) => {
                         className="nav-link">Projects</NavLink>
                 </li>
                 <li className="nav-item">
+                    <NavLink to='/tasks'  activeClassName="active"
+                        className="nav-link">Tasks</NavLink>
+                </li>
+                <li className="nav-item">
                     <NavLink exact to='/profile' activeClassName="active"
                         className="nav-link">Profile</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink exact to='/tasks' activeClassName="active"
-                        className="nav-link">Tasks</NavLink>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link disabled">{props.name}</a>
+                    <a className="nav-link disabled">James Hansen</a>
                 </li>
             </ul>
         </nav>

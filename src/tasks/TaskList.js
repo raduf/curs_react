@@ -1,13 +1,14 @@
+
 import React from 'react';
 
-const TaskList = (props) => {
+const TaskList = () => {
     return (
         <div className="row">
             <div className="mt-2 w-100">
                 <h3>Tasks</h3>
                 <table className="table table-inverse">
                     <thead>
-                        <tr>    
+                        <tr>
                             <th>Subject</th>
                             <th>Description</th>
                             <th>Status</th>
