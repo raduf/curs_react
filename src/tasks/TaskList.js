@@ -1,8 +1,9 @@
 
 import React from 'react';
 import queryString from 'query-string';
+import moment from 'moment'
 
-const TaskList = ({ location }) => {
+const TaskList = ({ location, tasks }) => {
     console.log(location.search);
     const queryObject = queryString.parse(location.search);
     console.log(queryObject);
@@ -32,17 +33,24 @@ const TaskList = ({ location }) => {
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th>Total items: </th>
+                            <th>Total items: {tasks.length}</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Subject</td>
-                            <td>Description</td>
-                            <td>Status</td>
-                            <td>Owner</td>
-                            <td>Deadline</td>
-                        </tr>
+                        {
+                            tasks && Array.isArray(tasks) && tasks.length &&
+                            tasks.map( (task) => (
+                                <tr>
+                                <td>{task.subject}</td>
+                                <td>{task.description}</td>
+                                <td>{task.status}</td>
+                                <td>{task.owner_name}</td>
+                                <td>{moment(task.end_date).format('DD-MMM-YYYY')}</td>
+                                <td>{moment(task.end_date).fromNow()}</td>
+                                </tr>
+    
+                            ) )
+                        }
                     </tbody>
                 </table>
             </div>
