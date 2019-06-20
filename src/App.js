@@ -8,6 +8,11 @@ import Profile from './profile/Profile';
 class App extends Component {
   title = 'Simple Project Manager';
 
+  profile = {
+    name: 'James Hansen',
+    bio: 'Great Great Cat'
+  }
+
   render() {
     return (
       <main className="container pt-3">
@@ -17,7 +22,8 @@ class App extends Component {
 
           <Route path='/' exact component={ProjectList}/>
           <Route path='/dashboard' component={Dashboard}/>
-          <Route path='/profile' component={Profile}/>
+          <Route path='/profile' render={ () => ( <Profile profile={this.profile} /> ) }/>
+          {/* {<Route path='/profile' component={Profile}/>} */}
       </main>
     );
   }
