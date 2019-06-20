@@ -2,6 +2,7 @@
 import React from 'react';
 
 import './four04.css'
+import {linkList} from './four04.css.js'
 
 const Four04 = props => {
     return (
@@ -12,10 +13,18 @@ const Four04 = props => {
             <div className="error-desc">
                 Sorry, but the page you are looking for was either not found or does not exist. 
                 
-                <ul className="list-inline text-center text-sm">
-                <li className="list-inline-item"><a className="text-muted">Home</a></li>
-                <li className="list-inline-item"><a className="text-muted">Projects</a></li>
-                <li className="list-inline-item"><a className="text-muted">Tasks</a></li>
+                <ul 
+                    style={linkList}
+                    className="list-inline text-center text-sm">
+                    <li className="list-inline-item">
+                        <a>Home</a>
+                    </li>
+                    <li className="list-inline-item">
+                        <a>Projects</a>
+                    </li>
+                    <li className="list-inline-item">
+                        <a>Tasks</a>
+                    </li>
                 </ul>
             </div>
         </div>
