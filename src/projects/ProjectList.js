@@ -88,7 +88,7 @@ class ProjectList extends Component {
         //     this.state.projectInfoOpen !== nextState.projectInfoOpen ||
         //     this.state.projectAddOpen !== nextState.projectAddOpen 
         // )
-            return true;
+        return true;
         // return false;
     }
 

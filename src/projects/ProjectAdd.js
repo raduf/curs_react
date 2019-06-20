@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import DisplayErrors from './DisplayErrors'
+
+import React, { Component } from 'react';
+import DisplayErrors from './DisplayErrors';
 
 class ProjectAdd extends Component {
 
@@ -9,19 +10,14 @@ class ProjectAdd extends Component {
             project:{
                 name: '',
                 code: '',
-                description: '',
+                description: ''
             },
-
-            formErrors: {
-                name: '',
-                code: ''
-            },
-            formValid: false, 
+            formErrors: { name: '', code: ''},
+            formValid: false,
             projectValid: {
                 name: false,
-                code: false
+                code: false,
             }
-
         }
 
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -36,10 +32,10 @@ class ProjectAdd extends Component {
         console.log(elements.name.value);
         this.setState(() => ({
             project:{
-                    name: elements.name.value,
-                    code: elements.code.value,
-                    description: elements.description.value
-                }
+                name: elements.name.value,
+                code: elements.code.value,
+                description: elements.description.value
+            }
             }),
             () => { 
                 console.log('Project saved', this.state);
@@ -48,42 +44,8 @@ class ProjectAdd extends Component {
         );
     }
 
-    validateField(fieldName, value){
-        let fieldValidationErrors = this.state.formErrors
-
-        let nameValid = this.state.projectValid.name
-        let codeValid = this.state.projectValid.code
-
-        switch(fieldName){
-            case 'name':
-                nameValid = value.length >= 5
-                fieldValidationErrors.name = nameValid ? '' : 'is too short'
-                break
-            case 'code':
-                codeValid = value.length >= 2
-                fieldValidationErrors.code = codeValid ? '' : 'is too short'
-                break
-            default:
-                break
-        }
-
-        this.setState( () => ({
-            formErrors: fieldValidationErrors,
-            projectValid: {
-                name: nameValid,
-                code: codeValid
-            }
-        }), this.validateForm)
-    }
-
-    validateForm(){
-        this.setState({
-            formValid: this.state.projectValid.code && this.state.projectValid.name
-        })
-    }
     
-    handleFormInputChange(e){
-        console.log('handleFormInputChange', e.target.name, e.target.value)
+    handleFormInputChange(e) {
         const value = e.target.value;
         const name = e.target.name;
 
@@ -92,50 +54,82 @@ class ProjectAdd extends Component {
                     ...this.state.project,
                     [name]: value
                 }
-            }), 
-            () => {
-                this.validateField(name, value)
+            }),
+            () => { 
+                this.validateField(name, value);
             }
         );
     }
+    
+    validateField(fieldName, value) {
+        console.log('validateField', fieldName, value);
+        let fieldValidationErrors = this.state.formErrors;
+        let nameValid = this.state.projectValid.name;
+        let codeValid = this.state.projectValid.code;
 
-    errorClass(error){
-        return error.length === 0 ? '' : 'is-invalid'
+        switch(fieldName) {
+            case 'name':
+                nameValid = value.length >= 5;
+                fieldValidationErrors.name = nameValid ? '' : ' is too short';
+                break;
+            case 'code':
+                codeValid = value.length >= 2;
+                fieldValidationErrors.code = codeValid ? '' : ' is too short';
+                break;
+            default:
+                break;
+        }
+        this.setState({ 
+                formErrors: fieldValidationErrors,
+                projectValid: {
+                    code: codeValid,
+                    name: nameValid
+                }
+            
+          }, this.validateForm);
+
     }
+
+    validateForm() {
+        console.log('validateForm');
+        this.setState({
+            formValid: this.state.projectValid.code && 
+                this.state.projectValid.name 
+        });
+    }
+
+    errorClass(error) {
+        return(error.length === 0 ? '' : 'is-invalid');
+     }
 
     render() {
         return (
             <div className="col-8 pt-2">
                 <form onSubmit={this.onFormSubmit}>
-                    <DisplayErrors formErrors={this.state.formErrors}/>
+                    <DisplayErrors formErrors={this.state.formErrors} />
+
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
-                        <input 
-                            value={this.state.project.name}
+                        <input value={this.state.project.name}
                             onChange={this.handleFormInputChange}
-                            name="name" type="text" 
-                            className={`form-control ${ this.errorClass(this.state.formErrors.name)}`} 
-                            id="name" />
+                            className={`form-control ${this.errorClass(this.state.formErrors.name)}`}
+                            name="name" type="text" id="name" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="code">Code</label>
-                        <input 
-                            value={this.state.project.code}
-                            onChange={this.handleFormInputChange}
-                            name="code" type="text" 
-                            className={`form-control ${ this.errorClass(this.state.formErrors.code)}`} 
-                            id="code" />
+                        <input value={this.state.project.code} 
+                            onChange={this.handleFormInputChange} 
+                            className={`form-control ${this.errorClass(this.state.formErrors.code)}`}
+                            name="code" type="text" id="code" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description">Description</label>
-                        <input 
-                            value={this.state.project.description}
-                            onChange={this.handleFormInputChange}
-                            name="description" type="text" 
-                            className="form-control" id="description" />
+                        <input value={this.state.project.description} 
+                            onChange={this.handleFormInputChange} 
+                            name="description" type="text" className="form-control" id="description" />
                     </div>
-                    <button 
-                        disabled = {!this.state.formValid}
+                    <button
+                        disabled={!this.state.formValid} 
                         className="btn btn-success">Save</button>
                 </form>
             </div>

@@ -54,7 +54,6 @@ class ProjectItem extends Component {
     }
 
     render(){
-        console.log('ProjectItem rendered...');
         return (
             <div className="col-8 pt-2">
                 <div className="card card-inverse card-outline-default text-white"
@@ -96,6 +95,7 @@ class ProjectItem extends Component {
                 }
 
                 {
+                    
                     this.state.showConfirmDelete &&
                     <ReactConfirmAlert
                         title="Confirm delete"
