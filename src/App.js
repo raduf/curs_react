@@ -20,15 +20,13 @@ class App extends Component {
     return (
       <main className="container pt-3">
           <Navbar title={this.title} />
-
           <Switch>
             <Route path="/" exact component={ProjectList} />
-            <Redirect from="/tasks/list" to="/tasks"/>
+            <Redirect from="/tasks/list" to="/tasks" />
             <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/profile" exact render={() => (<Profile profile={this.profile} />) } />
             <Route path="/tasks" component={TaskLayout}  />
-
-            <Route component={Four04}/>
+            <Route component={Four04} />
           </Switch>
       </main>
     );
